@@ -90,7 +90,7 @@ class PlotData
       @rects[:uwamabuta1] = {x1: s[0].to_i, y1: s[1].to_i, x2: s[0].to_i + 1, y2: s[1].to_i + 1}
       s = file.gets.split("\t")
       @rects[:uwamabuta2] = {x1: s[0].to_i, y1: s[1].to_i, x2: s[0].to_i + 1, y2: s[1].to_i + 1}
-      @rects[:iris_center] = {x1: (@rects[:iris][:x2] + @rects[:iris][:x1]) / 2.0, y1: (@rects[:iris][:y2] + @rects[:iris][:y1]) / 2.0, x2: 1, y2: 1}
+      @rects[:iris_center] = {x1: (@rects[:iris][:x2] + @rects[:iris][:x1]) / 2.0, y1: (@rects[:iris][:y2] + @rects[:iris][:y1]) / 2.0  * 0.99, x2: 1, y2: 1}
     end
   end
 
@@ -103,7 +103,7 @@ class PlotData
     gc.stroke('red')
     rect = dict[:head]
     gc.rectangle(rect[:x1], rect[:y1], rect[:x2], rect[:y2])
-    gc.ellipse(0, rect[:y2] / 1.9, rect[:x2], rect[:y2] - rect[:y2] / 1.9, 0, 180)
+    gc.ellipse(0, rect[:y2] / 2.05, rect[:x2], rect[:y2] - rect[:y2] / 2.05, 0, 180)
     gc.ellipse(0, rect[:y2] / 3.0, rect[:x2], rect[:y2] / 3.0, 180, 360)
 
     # rect = dict[:eye]
@@ -117,7 +117,8 @@ class PlotData
 
     rect = dict[:mouth]
     # gc.rectangle(rect[:x1], rect[:y1], rect[:x2], rect[:y2])
-    gc.ellipse(0, rect[:y1], rect[:x2] - rect[:x1], rect[:y2] - rect[:y1], 0, 180)
+    # gc.ellipse(0, rect[:y1], rect[:x2] - rect[:x1], rect[:y2] - rect[:y1], 0, 180)
+    gc.ellipse(0, (rect[:y1] + rect[:y2]) / 2.0 , rect[:x2] - rect[:x1], (rect[:y1] + rect[:y2]) / 2.0 - rect[:y1], 0, 360)
 
     # orange
     gc.stroke('orange')
