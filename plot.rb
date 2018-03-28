@@ -139,7 +139,7 @@ class PlotData
     gc.stroke_width(3 * stroke_strength)
 
     # gc.line(dict[:uwamabuta0][:x1], dict[:uwamabuta0][:y1], dict[:uwamabuta1][:x1], dict[:uwamabuta1][:y1])
-    gc.ellipse(dict[:uwamabuta1][:x1], dict[:uwamabuta2][:y1], dict[:uwamabuta1][:x1] - dict[:uwamabuta0][:x1], dict[:uwamabuta0][:y1] - dict[:uwamabuta1][:y1], 180, 270)
+    gc.ellipse(dict[:uwamabuta1][:x1], dict[:uwamabuta0][:y1], dict[:uwamabuta1][:x1] - dict[:uwamabuta0][:x1], dict[:uwamabuta0][:y1] - dict[:uwamabuta1][:y1], 180, 270)
     gc.ellipse(dict[:uwamabuta1][:x1], dict[:uwamabuta2][:y1], dict[:uwamabuta2][:x1] - dict[:uwamabuta1][:x1], dict[:uwamabuta2][:y1] - dict[:uwamabuta1][:y1], 270, 360)
     gc.ellipse(dict[:iris][:x2], dict[:uwamabuta2][:y1], dict[:uwamabuta2][:x1] - dict[:iris][:x2], dict[:iris][:y2] - dict[:uwamabuta2][:y1], 0, 40)
   end
@@ -153,4 +153,4 @@ pool.generate(500, 1000, :avg, mirror = true, stroke_strength = 3.0, resize = 0.
 base = Magick::Image.read('./out/plot_all.png').first
 append = Magick::Image.read('./out/plot_avg.png').first
 mix = base.composite(append, 0, 0, Magick::MultiplyCompositeOp)
-mix.write("./out/plot_mix.png")
+mix.write(ARGV[0] ? "./out/plot_#{ARGV[0]}.png" : "./out/plot_mix.png")
