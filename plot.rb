@@ -103,26 +103,35 @@ class PlotData
     gc.stroke('red')
     rect = dict[:head]
     gc.rectangle(rect[:x1], rect[:y1], rect[:x2], rect[:y2])
-    rect = dict[:eye]
-    gc.rectangle(rect[:x1], rect[:y1], rect[:x2], rect[:y2])
+    gc.ellipse(0, rect[:y2] / 1.9, rect[:x2], rect[:y2] - rect[:y2] / 1.9, 0, 180)
+    gc.ellipse(0, rect[:y2] / 3.0, rect[:x2], rect[:y2] / 3.0, 180, 360)
+
+    # rect = dict[:eye]
+    # gc.rectangle(rect[:x1], rect[:y1], rect[:x2], rect[:y2])
+
+    rect = dict[:iris]
+    gc.ellipse(dict[:iris_center][:x1], dict[:iris_center][:y1], (rect[:x2] - rect[:x1]) / 2.0, (rect[:y2] - rect[:y1]) / 2.0, 0, 360)
+    gc.line(rect[:x1], rect[:y2], rect[:x2], rect[:y2])
+    gc.ellipse(dict[:iris][:x2], dict[:uwamabuta2][:y1], dict[:uwamabuta2][:x1] - dict[:iris][:x2], dict[:iris][:y2] - dict[:uwamabuta2][:y1], 0, 90)
+    gc.ellipse(dict[:iris][:x1], dict[:uwamabuta0][:y1], dict[:iris][:x1] - dict[:uwamabuta0][:x1], dict[:iris][:y2] - dict[:uwamabuta0][:y1], 90, 180)
+
     rect = dict[:mouth]
-    gc.rectangle(rect[:x1], rect[:y1], rect[:x2], rect[:y2])
+    # gc.rectangle(rect[:x1], rect[:y1], rect[:x2], rect[:y2])
+    gc.ellipse(0, rect[:y1], rect[:x2] - rect[:x1], rect[:y2] - rect[:y1], 0, 180)
 
     # orange
     gc.stroke('orange')
     rect = dict[:mayu]
-    gc.rectangle(rect[:x1], rect[:y1], rect[:x2], rect[:y2])
+    gc.ellipse(rect[:x2], rect[:y2], rect[:x2] - rect[:x1], rect[:y2] - rect[:y1], 180, 270)
 
     # green
     gc.stroke('green')
     gc.stroke_width(3 * stroke_strength)
-    rect = dict[:iris]
-    # gc.rectangle(rect[:x1], rect[:y1], rect[:x2], rect[:y2])
-    gc.circle(dict[:iris_center][:x1], dict[:iris_center][:y1], rect[:x1], (rect[:y1] + rect[:y2]) / 2)
+
     rect = dict[:cheak]
     gc.rectangle(rect[:x1], rect[:y1], rect[:x2], rect[:y2])
+
     rect = dict[:nose]
-    # gc.rectangle(rect[:x1], rect[:y1], rect[:x2], rect[:y2])
     gc.line(0, rect[:y2], rect[:x2], rect[:y2])
     gc.line(0, rect[:y1], rect[:x2], rect[:y2])
 
@@ -130,7 +139,9 @@ class PlotData
     gc.stroke_width(3 * stroke_strength)
 
     gc.line(dict[:uwamabuta0][:x1], dict[:uwamabuta0][:y1], dict[:uwamabuta1][:x1], dict[:uwamabuta1][:y1])
-    gc.line(dict[:uwamabuta1][:x1], dict[:uwamabuta1][:y1], dict[:uwamabuta2][:x1], dict[:uwamabuta2][:y1])
+    # gc.ellipse(dict[:uwamabuta1][:x1], dict[:uwamabuta2][:y1], dict[:uwamabuta1][:x1] - dict[:uwamabuta0][:x1], dict[:uwamabuta0][:y1] - dict[:uwamabuta1][:y1], 180, 270)
+    gc.ellipse(dict[:uwamabuta1][:x1], dict[:uwamabuta2][:y1], dict[:uwamabuta2][:x1] - dict[:uwamabuta1][:x1], dict[:uwamabuta2][:y1] - dict[:uwamabuta1][:y1], 270, 360)
+    gc.ellipse(dict[:iris][:x2], dict[:uwamabuta2][:y1], dict[:uwamabuta2][:x1] - dict[:iris][:x2], dict[:iris][:y2] - dict[:uwamabuta2][:y1], 0, 40)
   end
 end
 
