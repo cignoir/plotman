@@ -138,8 +138,8 @@ class PlotData
     gc.stroke('blue')
     gc.stroke_width(3 * stroke_strength)
 
-    gc.line(dict[:uwamabuta0][:x1], dict[:uwamabuta0][:y1], dict[:uwamabuta1][:x1], dict[:uwamabuta1][:y1])
-    # gc.ellipse(dict[:uwamabuta1][:x1], dict[:uwamabuta2][:y1], dict[:uwamabuta1][:x1] - dict[:uwamabuta0][:x1], dict[:uwamabuta0][:y1] - dict[:uwamabuta1][:y1], 180, 270)
+    # gc.line(dict[:uwamabuta0][:x1], dict[:uwamabuta0][:y1], dict[:uwamabuta1][:x1], dict[:uwamabuta1][:y1])
+    gc.ellipse(dict[:uwamabuta1][:x1], dict[:uwamabuta2][:y1], dict[:uwamabuta1][:x1] - dict[:uwamabuta0][:x1], dict[:uwamabuta0][:y1] - dict[:uwamabuta1][:y1], 180, 270)
     gc.ellipse(dict[:uwamabuta1][:x1], dict[:uwamabuta2][:y1], dict[:uwamabuta2][:x1] - dict[:uwamabuta1][:x1], dict[:uwamabuta2][:y1] - dict[:uwamabuta1][:y1], 270, 360)
     gc.ellipse(dict[:iris][:x2], dict[:uwamabuta2][:y1], dict[:uwamabuta2][:x1] - dict[:iris][:x2], dict[:iris][:y2] - dict[:uwamabuta2][:y1], 0, 40)
   end
