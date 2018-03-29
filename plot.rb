@@ -60,6 +60,24 @@ class PlotDataPool
     image_list = image_list.resize(resize)
     image_list.write("./out/plot_#{mode}.png")
   end
+
+  def generate_each(width, height, mirror = false, stroke_strength = 1.0, resize = 1.0)
+    @pool.each_with_index do |data, index|
+      image_list = Magick::ImageList.new
+      img = Magick::Image.new(width, height)
+      img.alpha(Magick::ActivateAlphaChannel)
+      gc = Magick::Draw.new
+      gc.fill('none')
+      gc.fill_opacity(0)
+      PlotData.plot(gc, data.rects, stroke_strength)
+      gc.draw(img)
+      image_list << img.flop if mirror
+      image_list << img
+      image_list = image_list.append(false)
+      image_list = image_list.resize(resize)
+      image_list.write("./out/plot_#{index}.png")
+    end
+  end
 end
 
 class PlotData
@@ -118,7 +136,8 @@ class PlotData
     rect = dict[:mouth]
     # gc.rectangle(rect[:x1], rect[:y1], rect[:x2], rect[:y2])
     # gc.ellipse(0, rect[:y1], rect[:x2] - rect[:x1], rect[:y2] - rect[:y1], 0, 180)
-    gc.ellipse(0, (rect[:y1] + rect[:y2]) / 2.0 , rect[:x2] - rect[:x1], (rect[:y1] + rect[:y2]) / 2.0 - rect[:y1], 0, 360)
+    # gc.ellipse(0, (rect[:y1] + rect[:y2]) / 2.0 , rect[:x2] - rect[:x1], (rect[:y1] + rect[:y2]) / 2.0 - rect[:y1], 0, 360)
+    gc.ellipse(0, (rect[:y1] + rect[:y2]) / 2.0 , rect[:x2] - rect[:x1], (rect[:y1] + rect[:y2]) / 2.0 - rect[:y1], 0, 180)
 
     # orange
     gc.stroke('orange')
@@ -141,12 +160,14 @@ class PlotData
 
     # gc.line(dict[:uwamabuta0][:x1], dict[:uwamabuta0][:y1], dict[:uwamabuta1][:x1], dict[:uwamabuta1][:y1])
     gc.ellipse(dict[:uwamabuta1][:x1], dict[:uwamabuta0][:y1], dict[:uwamabuta1][:x1] - dict[:uwamabuta0][:x1], dict[:uwamabuta0][:y1] - dict[:uwamabuta1][:y1], 180, 270)
+
     gc.ellipse(dict[:uwamabuta1][:x1], dict[:uwamabuta2][:y1], dict[:uwamabuta2][:x1] - dict[:uwamabuta1][:x1], dict[:uwamabuta2][:y1] - dict[:uwamabuta1][:y1], 270, 360)
     gc.ellipse(dict[:iris][:x2], dict[:uwamabuta2][:y1], dict[:uwamabuta2][:x1] - dict[:iris][:x2], dict[:iris][:y2] - dict[:uwamabuta2][:y1], 0, 40)
   end
 end
 
 pool = PlotDataPool.new
+pool.generate_each(500, 1000, mirror = true, stroke_strength = 3.0, resize = 0.25)
 pool.generate(500, 1000, :all, mirror = true, stroke_strength = 0.01, resize = 0.25)
 pool.generate(500, 1000, :avg, mirror = true, stroke_strength = 3.0, resize = 0.25)
 
